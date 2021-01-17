@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.modules.epi.dao.ClassesDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.renren.modules.epi.entity.ClassesEntity" id="classesMap">
+        <result property="id" column="id"/>
+        <result property="major" column="major"/>
+        <result property="name" column="name"/>
+        <result property="no" column="no"/>
+        <result property="grade" column="grade"/>
+        <result property="graduateTime" column="graduate_time"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="desc" column="desc"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+
+</mapper>
