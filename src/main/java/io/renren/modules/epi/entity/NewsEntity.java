@@ -1,5 +1,6 @@
 package io.renren.modules.epi.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -9,7 +10,7 @@ import lombok.Data;
 
 /**
  * 新闻表
- * 
+ *
  * @author xiaoguangding
  * @email 472036660@qq.com
  * @date 2021-01-17 11:21:33
@@ -80,5 +81,15 @@ public class NewsEntity implements Serializable {
 	 * 备注
 	 */
 	private String remark;
+	/**
+	 * 真实姓名
+	 */
+	@TableField(exist = false)
+	private String createrName;
+	/**
+	 * 真实姓名
+	 */
+	@TableField(exist = false)
+	private String reviewerName;
 
 }

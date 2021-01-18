@@ -37,7 +37,7 @@ public class NewsController {
     @RequestMapping("/list")
     @RequiresPermissions("epi:news:list")
     public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = newsService.queryPage(params);
+        PageUtils page = newsService.queryPages(params);
 
         return R.ok().put("page", page);
     }
