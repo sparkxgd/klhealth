@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Map;
 
+import io.renren.modules.epi.entity.UserDeptEntity;
+import io.renren.modules.epi.service.UserDeptService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +33,8 @@ import io.renren.common.utils.R;
 public class UserController {
     @Autowired
     private UserService epiUserService;
+    @Autowired
+    private UserDeptService userDeptService;
 
     /**
      * 列表
@@ -66,6 +70,13 @@ public class UserController {
             user.setCreateTime(new Date());
             user.setUpdateTime(new Date());
             epiUserService.save(user);
+            //添加到用户部门表里
+            UserDeptEntity userDept=new UserDeptEntity();
+            userDept.setCreateTime(new Date());
+            userDept.setUpdateTime(new Date());
+            EpiUserEntity m =epiUserService.getOneBy(user.getUsername());
+            userDept.setUserId(m.getId());
+            userDeptService.save(userDept);
             return R.ok();
         }else{
             return R.error("用户名已经存在");

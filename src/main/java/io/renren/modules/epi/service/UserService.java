@@ -23,5 +23,19 @@ public interface UserService extends IService<EpiUserEntity> {
      * @return
      */
     boolean isExitUser(String username);
+
+    /**
+     * 表关联查询
+     * @param params
+     * @return
+     */
+    PageUtils queryPages(Map<String, Object> params);
+
+    /**
+     * 根据用户名查询
+     * @param username
+     * @return
+     */
+    EpiUserEntity getOneBy(String username);
 }
 

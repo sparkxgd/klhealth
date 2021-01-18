@@ -37,7 +37,7 @@ public class UserBandingController {
     @RequestMapping("/list")
     @RequiresPermissions("epi:userbanding:list")
     public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = userBandingService.queryPage(params);
+        PageUtils page = userBandingService.queryPages(params);
 
         return R.ok().put("page", page);
     }

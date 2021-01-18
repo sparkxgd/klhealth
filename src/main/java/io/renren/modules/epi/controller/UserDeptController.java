@@ -37,7 +37,7 @@ public class UserDeptController {
     @RequestMapping("/list")
     @RequiresPermissions("epi:userdept:list")
     public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = userDeptService.queryPage(params);
+        PageUtils page = userDeptService.queryPages(params);
 
         return R.ok().put("page", page);
     }
@@ -49,8 +49,7 @@ public class UserDeptController {
     @RequestMapping("/info/{id}")
     @RequiresPermissions("epi:userdept:info")
     public R info(@PathVariable("id") Long id){
-		UserDeptEntity userDept = userDeptService.getById(id);
-
+		UserDeptEntity userDept = userDeptService.getSById(id);
         return R.ok().put("userDept", userDept);
     }
 
