@@ -1,7 +1,5 @@
 package io.renren.modules.epi.service.impl;
 
-import com.qiniu.util.StringUtils;
-import io.renren.modules.epi.entity.ClassesEntity;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -45,7 +43,13 @@ public class UserServiceImpl extends ServiceImpl<EpiUserDao, EpiUserEntity> impl
 
     @Override
     public EpiUserEntity getOneBy(String username) {
+
         return this.getOne(new QueryWrapper<EpiUserEntity>().eq("username",username));
+    }
+
+    @Override
+    public EpiUserEntity getStudentByNo(String no) {
+        return this.getOne(new QueryWrapper<EpiUserEntity>().eq("no",no).eq("type",0));
     }
 
 }

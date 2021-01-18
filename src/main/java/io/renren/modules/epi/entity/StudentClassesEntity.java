@@ -1,5 +1,6 @@
 package io.renren.modules.epi.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -9,7 +10,7 @@ import lombok.Data;
 
 /**
  * 学生班级表
- * 
+ *
  * @author xiaoguangding
  * @email 472036660@qq.com
  * @date 2021-01-17 11:21:32
@@ -27,11 +28,11 @@ public class StudentClassesEntity implements Serializable {
 	/**
 	 * 学号
 	 */
-	private Integer no;
+	private String no;
 	/**
 	 * 班级,外键，班级表id
 	 */
-	private Integer clsId;
+	private Long clsId;
 	/**
 	 * 加入时间
 	 */
@@ -48,5 +49,20 @@ public class StudentClassesEntity implements Serializable {
 	 * 状态 0：正常，-1：异常,1:退出，2：休学
 	 */
 	private Integer status;
+	/**
+	 * 用户名
+	 */
+	@TableField(exist = false)
+	private String username;
+	/**
+	 * 真实姓名
+	 */
+	@TableField(exist = false)
+	private String name;
+	/**
+	 * 真实姓名
+	 */
+	@TableField(exist = false)
+	private String clsName;
 
 }

@@ -1,8 +1,11 @@
 package io.renren.modules.epi.controller;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Map;
 
+import io.renren.modules.epi.entity.EpiUserEntity;
+import io.renren.modules.epi.service.UserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,14 +33,15 @@ import io.renren.common.utils.R;
 public class StudentClassesController {
     @Autowired
     private StudentClassesService studentClassesService;
-
+    @Autowired
+    private UserService epiUserService;
     /**
      * 列表
      */
     @RequestMapping("/list")
     @RequiresPermissions("epi:studentclasses:list")
     public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = studentClassesService.queryPage(params);
+        PageUtils page = studentClassesService.queryPages(params);
 
         return R.ok().put("page", page);
     }
@@ -60,9 +64,19 @@ public class StudentClassesController {
     @RequestMapping("/save")
     @RequiresPermissions("epi:studentclasses:save")
     public R save(@RequestBody StudentClassesEntity studentClasses){
-		studentClassesService.save(studentClasses);
+        //判断学号是存在
+        EpiUserEntity u = epiUserService.getStudentByNo(studentClasses.getNo());
+        if(u!=null){
+            studentClasses.setAddTime(new Date());
+            studentClasses.setUpdateTime(new Date());
+            studentClassesService.save(studentClasses);
+            return R.ok();
+        }else{
+            return R.error("这个学生的学号不存在");
+        }
 
-        return R.ok();
+
+
     }
 
     /**
@@ -71,8 +85,8 @@ public class StudentClassesController {
     @RequestMapping("/update")
     @RequiresPermissions("epi:studentclasses:update")
     public R update(@RequestBody StudentClassesEntity studentClasses){
+        studentClasses.setUpdateTime(new Date());
 		studentClassesService.updateById(studentClasses);
-
         return R.ok();
     }
 

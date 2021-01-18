@@ -37,5 +37,12 @@ public interface UserService extends IService<EpiUserEntity> {
      * @return
      */
     EpiUserEntity getOneBy(String username);
+
+    /**
+     * 根据学号获取学生信息
+     * @param no
+     * @return
+     */
+    EpiUserEntity getStudentByNo(String no);
 }
 

@@ -16,5 +16,11 @@ import java.util.Map;
 public interface StudentClassesService extends IService<StudentClassesEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+    /**
+     * 表关联查询
+     * @param params
+     * @return
+     */
+    PageUtils queryPages(Map<String, Object> params);
 }
 
