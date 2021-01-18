@@ -1,5 +1,6 @@
 package io.renren.modules.epi.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -9,7 +10,7 @@ import lombok.Data;
 
 /**
  * 运动记录表
- * 
+ *
  * @author xiaoguangding
  * @email 472036660@qq.com
  * @date 2021-01-17 11:20:57
@@ -44,5 +45,15 @@ public class MotionInfoEntity implements Serializable {
 	 * 备注
 	 */
 	private String remark;
+	/**
+	 * 用户名
+	 */
+	@TableField(exist = false)
+	private String username;
+	/**
+	 * 真实姓名
+	 */
+	@TableField(exist = false)
+	private String name;
 
 }

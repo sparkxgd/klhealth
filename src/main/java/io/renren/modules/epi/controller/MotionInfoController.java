@@ -37,7 +37,7 @@ public class MotionInfoController {
     @RequestMapping("/list")
     @RequiresPermissions("epi:motioninfo:list")
     public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = motionInfoService.queryPage(params);
+        PageUtils page = motionInfoService.queryPages(params);
 
         return R.ok().put("page", page);
     }
