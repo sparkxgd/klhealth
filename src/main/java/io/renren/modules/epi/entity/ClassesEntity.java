@@ -1,15 +1,18 @@
 package io.renren.modules.epi.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 /**
  * 班级表
- * 
+ *
  * @author xiaoguangding
  * @email 472036660@qq.com
  * @date 2021-01-17 11:21:32
@@ -31,6 +34,12 @@ public class ClassesEntity implements Serializable {
 	/**
 	 * 名称
 	 */
+	@TableField(exist = false)
+	private String majorName;
+	/**
+	 * 名称
+	 */
+	@TableField("`name`")
 	private String name;
 	/**
 	 * 编号
@@ -43,6 +52,7 @@ public class ClassesEntity implements Serializable {
 	/**
 	 * 毕业时间
 	 */
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date graduateTime;
 	/**
 	 * 创建时间
@@ -55,10 +65,12 @@ public class ClassesEntity implements Serializable {
 	/**
 	 * 描述
 	 */
+	@TableField("`desc`")
 	private String desc;
 	/**
 	 * 状态	0：正常，-1：异常
 	 */
+	@TableField("`status`")
 	private Integer status;
 
 }

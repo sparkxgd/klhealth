@@ -17,5 +17,4 @@
         <result property="status" column="status"/>
     </resultMap>
 
-
 </mapper>

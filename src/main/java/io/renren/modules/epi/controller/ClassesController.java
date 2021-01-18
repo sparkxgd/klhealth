@@ -1,6 +1,7 @@
 package io.renren.modules.epi.controller;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Map;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -60,6 +61,8 @@ public class ClassesController {
     @RequestMapping("/save")
     @RequiresPermissions("epi:classes:save")
     public R save(@RequestBody ClassesEntity classes){
+        classes.setCreateTime(new Date());
+        classes.setUpdateTime(new Date());
 		classesService.save(classes);
 
         return R.ok();
@@ -71,6 +74,7 @@ public class ClassesController {
     @RequestMapping("/update")
     @RequiresPermissions("epi:classes:update")
     public R update(@RequestBody ClassesEntity classes){
+        classes.setUpdateTime(new Date());
 		classesService.updateById(classes);
 
         return R.ok();
