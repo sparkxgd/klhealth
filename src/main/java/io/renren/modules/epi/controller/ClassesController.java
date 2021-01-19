@@ -34,6 +34,7 @@ public class ClassesController {
 
     /**
      * 列表
+     * 提交测试
      */
     @RequestMapping("/list")
     @RequiresPermissions("epi:classes:list")
