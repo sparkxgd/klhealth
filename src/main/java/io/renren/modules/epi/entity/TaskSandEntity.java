@@ -32,7 +32,7 @@ public class TaskSandEntity implements Serializable {
 	/**
 	 * 外键 user表id
 	 */
-	private String userId;
+	private Long userId;
 	/**
 	 * 状态 0：待完成 1：已完成
 	 */

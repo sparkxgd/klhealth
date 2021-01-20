@@ -20,7 +20,7 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface TaskSandDao extends BaseMapper<TaskSandEntity> {
 
-    @Select("SELECT b.*,c.title,a.`name`,a.username from epi_task_sand b LEFT JOIN epi_user a on a.`no`=b.user_id LEFT JOIN epi_task c on b.task_id=c.id ${ew.customSqlSegment} ")
+    @Select("SELECT b.*,c.title,a.`name`,a.username from epi_task_sand b LEFT JOIN epi_user a on a.id=b.user_id LEFT JOIN epi_task c on b.task_id=c.id ${ew.customSqlSegment} ")
     IPage<TaskSandEntity> getPages(IPage<TaskSandEntity> page, @Param(Constants.WRAPPER) QueryWrapper wrapper);
 	
 }

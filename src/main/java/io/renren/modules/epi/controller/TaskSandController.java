@@ -70,10 +70,11 @@ public class TaskSandController {
     @RequestMapping("/save")
     @RequiresPermissions("epi:tasksand:save")
     public R save(@RequestBody TaskSandEntity taskSand){
-        //判断学号是存在
-        EpiUserEntity u = epiUserService.getStudentByNo(taskSand.getUserId());
+        //判断职工是否存在
+        EpiUserEntity u = epiUserService.getInfoByid(taskSand.getUserId());
         TaskEntity tpid = taskService.getTaskById(taskSand.getTaskId());
         if(u != null){
+            //根据任务id判断当前是否有此任务
             if (tpid != null) {
                 taskSand.setStatus(0);
                 taskSand.setReceiveTime(new Date());
@@ -84,7 +85,7 @@ public class TaskSandController {
             }
 
         }else{
-            return R.error("这个学生的学号不存");
+            return R.error("查无此人");
         }
     }
 
@@ -94,9 +95,21 @@ public class TaskSandController {
     @RequestMapping("/update")
     @RequiresPermissions("epi:tasksand:update")
     public R update(@RequestBody TaskSandEntity taskSand){
-		taskSandService.updateById(taskSand);
+        //判断职工是否存在
+        EpiUserEntity u = epiUserService.getInfoByid(taskSand.getUserId());
+        TaskEntity tpid = taskService.getTaskById(taskSand.getTaskId());
+        if(u != null){
+            //根据任务id判断当前是否有此任务
+            if (tpid != null) {
+                taskSandService.updateById(taskSand);
+                return R.ok();
+            }else {
+                return R.error("当前无此任务");
+            }
 
-        return R.ok();
+        }else{
+            return R.error("查无此人");
+        }
     }
 
     /**

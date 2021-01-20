@@ -64,14 +64,14 @@ public class TaskController {
     @RequestMapping("/save")
     @RequiresPermissions("epi:task:save")
     public R save(@RequestBody TaskEntity task){
-        //判断学号是存在
-        EpiUserEntity u = epiUserService.getStudentByNo(task.getUserId());
+        //根据id判断是否存在此人
+        EpiUserEntity u = epiUserService.getInfoByid(task.getUserId());
         if(u!=null){
             task.setStatus(0);
             taskService.save(task);
             return R.ok();
         }else{
-            return R.error("这个学生的学号不存在");
+            return R.error("查无此人");
         }
 
     }
@@ -82,9 +82,13 @@ public class TaskController {
     @RequestMapping("/update")
     @RequiresPermissions("epi:task:update")
     public R update(@RequestBody TaskEntity task){
+        EpiUserEntity u = epiUserService.getInfoByid(task.getUserId());
+        if(u!=null){
 		taskService.updateById(task);
-
         return R.ok();
+        }else{
+            return R.error("查无此人");
+        }
     }
 
     /**

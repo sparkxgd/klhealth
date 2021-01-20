@@ -41,7 +41,7 @@ public class TaskEntity implements Serializable {
 	/**
 	 * 创建任务人，外键user表id
 	 */
-	private String userId;
+	private Long userId;
 	/**
 	 * 开始时间
 	 */
