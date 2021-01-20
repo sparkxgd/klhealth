@@ -1,8 +1,14 @@
 package io.renren.modules.epi.controller;
 
+import java.sql.Time;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Map;
 
+import io.renren.modules.epi.entity.EpiUserEntity;
+import io.renren.modules.epi.entity.TaskEntity;
+import io.renren.modules.epi.service.TaskService;
+import io.renren.modules.epi.service.UserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +36,10 @@ import io.renren.common.utils.R;
 public class TaskSandController {
     @Autowired
     private TaskSandService taskSandService;
+    @Autowired
+    private UserService epiUserService;
+    @Autowired
+    private TaskService taskService;
 
     /**
      * 列表
@@ -37,7 +47,7 @@ public class TaskSandController {
     @RequestMapping("/list")
     @RequiresPermissions("epi:tasksand:list")
     public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = taskSandService.queryPage(params);
+        PageUtils page = taskSandService.queryPages(params);
 
         return R.ok().put("page", page);
     }
@@ -60,9 +70,22 @@ public class TaskSandController {
     @RequestMapping("/save")
     @RequiresPermissions("epi:tasksand:save")
     public R save(@RequestBody TaskSandEntity taskSand){
-		taskSandService.save(taskSand);
+        //判断学号是存在
+        EpiUserEntity u = epiUserService.getStudentByNo(taskSand.getUserId());
+        TaskEntity tpid = taskService.getTaskById(taskSand.getTaskId());
+        if(u != null){
+            if (tpid != null) {
+                taskSand.setStatus(0);
+                taskSand.setReceiveTime(new Date());
+                taskSandService.save(taskSand);
+                return R.ok();
+            }else {
+                return R.error("当前无此任务");
+            }
 
-        return R.ok();
+        }else{
+            return R.error("这个学生的学号不存");
+        }
     }
 
     /**

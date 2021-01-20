@@ -2,6 +2,7 @@ package io.renren.modules.epi.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import io.renren.common.utils.PageUtils;
+import io.renren.modules.epi.entity.EpiUserEntity;
 import io.renren.modules.epi.entity.TaskEntity;
 
 import java.util.Map;
@@ -16,5 +17,19 @@ import java.util.Map;
 public interface TaskService extends IService<TaskEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+    /**
+     * 表关联查询
+     * @param params
+     * @return
+     */
+    PageUtils queryPages(Map<String, Object> params);
+
+    /**
+     * 根据任务id获取任务信息
+     * @param id
+     * @return
+     */
+    TaskEntity getTaskById(long id);
+
 }
 

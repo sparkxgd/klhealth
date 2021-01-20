@@ -1,8 +1,11 @@
 package io.renren.modules.epi.controller;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Map;
 
+import io.renren.modules.epi.entity.EpiUserEntity;
+import io.renren.modules.epi.service.UserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +33,8 @@ import io.renren.common.utils.R;
 public class TaskController {
     @Autowired
     private TaskService taskService;
+    @Autowired
+    private UserService epiUserService;
 
     /**
      * 列表
@@ -37,8 +42,7 @@ public class TaskController {
     @RequestMapping("/list")
     @RequiresPermissions("epi:task:list")
     public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = taskService.queryPage(params);
-
+        PageUtils page = taskService.queryPages(params);
         return R.ok().put("page", page);
     }
 
@@ -60,9 +64,16 @@ public class TaskController {
     @RequestMapping("/save")
     @RequiresPermissions("epi:task:save")
     public R save(@RequestBody TaskEntity task){
-		taskService.save(task);
+        //判断学号是存在
+        EpiUserEntity u = epiUserService.getStudentByNo(task.getUserId());
+        if(u!=null){
+            task.setStatus(0);
+            taskService.save(task);
+            return R.ok();
+        }else{
+            return R.error("这个学生的学号不存在");
+        }
 
-        return R.ok();
     }
 
     /**

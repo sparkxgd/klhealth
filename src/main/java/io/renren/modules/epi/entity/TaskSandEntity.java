@@ -1,5 +1,6 @@
 package io.renren.modules.epi.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -31,7 +32,7 @@ public class TaskSandEntity implements Serializable {
 	/**
 	 * 外键 user表id
 	 */
-	private Long userId;
+	private String userId;
 	/**
 	 * 状态 0：待完成 1：已完成
 	 */
@@ -44,5 +45,21 @@ public class TaskSandEntity implements Serializable {
 	 * 备注
 	 */
 	private String remark;
+	/**
+	 * 用户名
+	 */
+	@TableField(exist = false)
+	private String username;
+	/**
+	 * 真实姓名
+	 */
+	@TableField(exist = false)
+	private String name;
+	/**
+	 * 标题
+	 */
+	@TableField(exist = false)
+	private String title;
+
 
 }

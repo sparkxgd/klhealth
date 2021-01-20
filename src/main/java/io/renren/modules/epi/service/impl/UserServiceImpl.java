@@ -51,5 +51,4 @@ public class UserServiceImpl extends ServiceImpl<EpiUserDao, EpiUserEntity> impl
     public EpiUserEntity getStudentByNo(String no) {
         return this.getOne(new QueryWrapper<EpiUserEntity>().eq("no",no).eq("type",0));
     }
-
 }
