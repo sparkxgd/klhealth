@@ -9,18 +9,21 @@
 package io.renren.modules.app.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import io.renren.common.utils.R;
 import io.renren.common.validator.ValidatorUtils;
+import io.renren.modules.app.annotation.Login;
+import io.renren.modules.app.annotation.LoginUser;
+import io.renren.modules.app.entity.UserEntity;
 import io.renren.modules.app.form.LoginForm;
+import io.renren.modules.app.form.WeixinUserForm;
 import io.renren.modules.app.service.UserService;
 import io.renren.modules.app.utils.JwtUtils;
+import io.renren.modules.app.utils.WechatUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -59,6 +62,13 @@ public class AppLoginController {
         map.put("expire", jwtUtils.getExpire());
 
         return R.ok(map);
+    }
+    @PostMapping("weixinUserBingding")
+    @ApiOperation("微信用户绑定")
+    public R weixinUserBingding(@RequestBody WeixinUserForm user){
+        JSONObject js =WechatUtils.getUserInfo(user.getCode(),user.getEncryptedData(),user.getIv());
+        System.out.println("到了"+js);
+        return R.ok().put("user", user);
     }
 
 }
