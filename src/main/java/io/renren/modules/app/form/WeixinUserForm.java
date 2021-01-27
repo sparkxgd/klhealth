@@ -22,6 +22,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 @ApiModel(value = "微信用户登录表单")
 public class WeixinUserForm {
+    private String openid;
     private String code;
     private String encryptedData;
 
