@@ -44,4 +44,19 @@ public class TaskSandServiceImpl extends ServiceImpl<TaskSandDao, TaskSandEntity
 
         return new PageUtils(pages);
     }
+    @Override
+    public PageUtils queryPages2(Map<String, Object> params) {
+        //表关联分页查询
+        QueryWrapper<TaskSandEntity> queryWrapper = new QueryWrapper<>();
+        if (!StringUtils.isNullOrEmpty(String.valueOf(params.get("key")))) {
+            //这里的a.`name`的a是在dao的查询语句里面，记得要对应，要不然就查不到
+            queryWrapper.eq("b.user_id",params.get("key").toString());
+        }
+        //设置分页参数
+        IPage<TaskSandEntity> page = new Query<TaskSandEntity>().getPage(params);
+        //分页查询
+        IPage<TaskSandEntity> pages= this.baseMapper.getPages2(page,queryWrapper);
+
+        return new PageUtils(pages);
+    }
 }

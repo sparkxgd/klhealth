@@ -23,5 +23,12 @@ public interface TaskSandService extends IService<TaskSandEntity> {
      */
     PageUtils queryPages(Map<String, Object> params);
 
+    /**
+     * 表关联查询
+     * @param params
+     * @return
+     */
+    PageUtils queryPages2(Map<String, Object> params);
+
 }
 
