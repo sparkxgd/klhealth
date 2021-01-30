@@ -10,7 +10,7 @@ import lombok.Data;
 
 /**
  * 健康记录数据表
- * 
+ *
  * @author xiaoguangding
  * @email 472036660@qq.com
  * @date 2021-01-17 11:21:35
@@ -42,7 +42,7 @@ public class HealthInfoEntity implements Serializable {
 	 */
 	private BigDecimal temperature;
 	/**
-	 * 是否正常 0：正常 1：不正常
+	 * 0：正常，1：发热，2：咳嗽，3：感冒，4：其他，-1：异常
 	 */
 	private Integer isnormal;
 	/**
@@ -57,5 +57,9 @@ public class HealthInfoEntity implements Serializable {
 	 * 备注
 	 */
 	private String remark;
+	/**
+	 * 创建时间
+	 */
+	private Date createTime;
 
 }

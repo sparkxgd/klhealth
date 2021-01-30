@@ -2,6 +2,7 @@ package io.renren.modules.epi.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import io.renren.common.utils.PageUtils;
+import io.renren.modules.app.form.WeixinUserForm;
 import io.renren.modules.epi.entity.UserBandingEntity;
 
 import java.util.Map;
@@ -22,5 +23,25 @@ public interface UserBandingService extends IService<UserBandingEntity> {
      * @return
      */
     PageUtils queryPages(Map<String, Object> params);
+
+    /**
+     * 创建疫情用户及绑定
+     * @param weixinId
+     * @return
+     */
+    UserBandingEntity createAccountAndBingding(String weixinId);
+    /**
+     * 更新疫情用户及绑定
+     * @param userinfo
+     * @return
+     */
+    UserBandingEntity updateBingding(WeixinUserForm userinfo);
+    /**
+     * 根据微信号查询
+     * @param weixinId
+     * @return
+     */
+    UserBandingEntity getByweixinId(String weixinId);
+
 }
 

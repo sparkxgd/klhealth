@@ -11,7 +11,7 @@
  Target Server Version : 80022
  File Encoding         : 65001
 
- Date: 19/01/2021 00:03:00
+ Date: 28/01/2021 13:05:02
 */
 
 SET NAMES utf8mb4;
@@ -33,6 +33,7 @@ CREATE TABLE `epi_class_manage`  (
 -- ----------------------------
 -- Records of epi_class_manage
 -- ----------------------------
+INSERT INTO `epi_class_manage` VALUES (1, 1, 1, '2021-01-27 14:38:40', 0);
 
 -- ----------------------------
 -- Table structure for epi_classes
@@ -55,10 +56,10 @@ CREATE TABLE `epi_classes`  (
 -- ----------------------------
 -- Records of epi_classes
 -- ----------------------------
-INSERT INTO `epi_classes` VALUES (1, 6, '666', '666', '66', '2021-01-17', '2021-01-17 23:14:56', '2021-01-17 23:14:56', '6', 0);
-INSERT INTO `epi_classes` VALUES (2, 6, '5555', '555', '55', '2021-01-17', '2021-01-17 23:18:00', '2021-01-17 23:18:00', '5555', 0);
-INSERT INTO `epi_classes` VALUES (3, 6, '人人通任天野', 'rr', '444', '2021-01-30', '2021-01-17 23:25:31', '2021-01-17 23:25:31', '444', 0);
-INSERT INTO `epi_classes` VALUES (4, 6, '大数18计科本2', '666', '555', '2021-01-29', '2021-01-18 12:34:10', '2021-01-18 12:34:10', '444', 0);
+INSERT INTO `epi_classes` VALUES (1, 6, '大数18计科本3', '666', '2018', '2021-01-17', '2021-01-17 23:14:56', '2021-01-19 23:00:35', '6', 0);
+INSERT INTO `epi_classes` VALUES (2, 6, '大数18计科本1', '555', '2018', '2021-01-17', '2021-01-17 23:18:00', '2021-01-19 22:59:18', '5555', 0);
+INSERT INTO `epi_classes` VALUES (3, 6, '大数18计科本4', '777', '2018', '2021-01-30', '2021-01-17 23:25:31', '2021-01-19 22:59:49', '444', 0);
+INSERT INTO `epi_classes` VALUES (4, 6, '大数18计科本2', '444', '2018', '2021-01-29', '2021-01-18 12:34:10', '2021-01-19 23:00:21', '444', 0);
 
 -- ----------------------------
 -- Table structure for epi_dept
@@ -90,20 +91,28 @@ INSERT INTO `epi_dept` VALUES (6, 3, '计算机科学与技术', 'DS0001', NULL,
 DROP TABLE IF EXISTS `epi_health_info`;
 CREATE TABLE `epi_health_info`  (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `user_id` bigint NULL DEFAULT 0 COMMENT '用户ID',
-  `health_img` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '健康码',
+  `user_id` bigint NULL DEFAULT NULL COMMENT '用户ID',
+  `health_img` varchar(9999) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '健康码',
   `position` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '经纬度',
-  `temperature` decimal(3, 2) NULL DEFAULT 0.00 COMMENT '体温',
-  `isnormal` tinyint NULL DEFAULT 0 COMMENT '是否正常 0：正常 1：不正常',
+  `temperature` decimal(10, 2) NULL DEFAULT NULL COMMENT '体温',
+  `isnormal` tinyint NULL DEFAULT 0 COMMENT '是否正常 0：正常，1：发热，2：咳嗽，3：感冒，4：其他，-1：异常',
   `is_cat_dangerous` tinyint NULL DEFAULT 0 COMMENT '是否与风险人员接触 0：否 1：是',
   `zone_action` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '活动区域',
   `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '上传时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '健康记录数据表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '健康记录数据表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of epi_health_info
 -- ----------------------------
+INSERT INTO `epi_health_info` VALUES (1, 222, 'https://bkimg.cdn.bcebos.com/pic/18d8bc3eb13533fa828b0a124299ea1f4134970aedfe?x-bce-process=image/resize,m_lfit,w_220,limit_1', '36.4', 36.00, 1, 0, '贵州凯里', '无', NULL);
+INSERT INTO `epi_health_info` VALUES (2, 525, 'https://dss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2690241947,3277352908&fm=26&gp=0.jpg', '36.7', 36.50, 0, 0, '贵州凯里', '无', NULL);
+INSERT INTO `epi_health_info` VALUES (3, 2340, 'https://img.iplaysoft.com/wp-content/uploads/2020/p/oculus-quest2/oculus_quest2_2x.jpg!300x200.webp', '37.6', 36.50, 0, 1, '贵州', NULL, NULL);
+INSERT INTO `epi_health_info` VALUES (4, 333, 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3373150905,1355266795&fm=26&gp=0.jpg', '37.8', 33.60, 0, 0, '广州', '去过广州', NULL);
+INSERT INTO `epi_health_info` VALUES (5, 1, 'hahah', '北京', 35.50, 0, 0, '贵州毕节', '', NULL);
+INSERT INTO `epi_health_info` VALUES (6, 4, '0', '107.9804,26.56756', 36.30, 0, 0, '', '', NULL);
+INSERT INTO `epi_health_info` VALUES (7, 4, 'http://tmp/BUm5JIx9ladY7940745303170b35d8c53c4ded32fa92.jpg', '107.9804,26.56756', 36.90, 2, 1, '贵州', '', NULL);
 
 -- ----------------------------
 -- Table structure for epi_message
@@ -155,12 +164,13 @@ CREATE TABLE `epi_motion_info`  (
   `end_time` datetime(0) NULL DEFAULT NULL COMMENT '运动结束时间',
   `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '运动记录表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '运动记录表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of epi_motion_info
 -- ----------------------------
 INSERT INTO `epi_motion_info` VALUES (1, 1, 10000, '2021-01-18 22:33:10', '2021-01-18 22:33:13', NULL);
+INSERT INTO `epi_motion_info` VALUES (2, 4, 500, '2021-01-27 19:49:12', '2021-01-27 19:49:15', NULL);
 
 -- ----------------------------
 -- Table structure for epi_news
@@ -183,11 +193,12 @@ CREATE TABLE `epi_news`  (
   `look_num` bigint NULL DEFAULT 0 COMMENT '浏览量',
   `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '新闻表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '新闻表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of epi_news
 -- ----------------------------
+INSERT INTO `epi_news` VALUES (1, '31省区市新增确诊103例 本土88例', '疫情', '1月19日0—24时，31个省（自治区、直辖市）和新疆生产建设兵团报告新增确诊病例103例，其中境外输入病例15例（上海4例，广东3例，浙江2例，四川2例，陕西2例，天津1例，福建1例），本土病例88例（吉林46例，河北19例，黑龙江16例，北京7例）；无新增死亡病例；无新增疑似病例。', 1, 1, '百度', 1, '2021-01-20 15:01:42', '2021-01-20 15:01:46', 2, 1, '2021-01-20 14:59:36', 0, NULL);
 
 -- ----------------------------
 -- Table structure for epi_student_classes
@@ -202,7 +213,7 @@ CREATE TABLE `epi_student_classes`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `status` tinyint NULL DEFAULT 0 COMMENT '状态 0：正常，-1：异常,1:退出，2：休学',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '学生班级表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '学生班级表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of epi_student_classes
@@ -230,6 +241,10 @@ CREATE TABLE `epi_task`  (
 -- ----------------------------
 -- Records of epi_task
 -- ----------------------------
+INSERT INTO `epi_task` VALUES (1, 0, '测试健康', '0', 1, '2021-01-27 17:18:26', '2021-01-27 17:18:28', 0, 0, NULL);
+INSERT INTO `epi_task` VALUES (2, 0, '中午健康', '0', 1, '2021-01-27 17:58:19', '2021-01-27 18:58:21', 0, 0, NULL);
+INSERT INTO `epi_task` VALUES (3, 0, '下午健康', '0', 1, '2021-01-27 19:58:42', '2021-01-27 21:58:46', 0, 0, NULL);
+INSERT INTO `epi_task` VALUES (4, 0, '测试昨天', '0', 1, '2021-01-26 18:00:23', '2021-01-26 19:00:27', 0, 0, NULL);
 
 -- ----------------------------
 -- Table structure for epi_task_sand
@@ -248,6 +263,10 @@ CREATE TABLE `epi_task_sand`  (
 -- ----------------------------
 -- Records of epi_task_sand
 -- ----------------------------
+INSERT INTO `epi_task_sand` VALUES (1, 1, 4, -1, NULL, NULL);
+INSERT INTO `epi_task_sand` VALUES (2, 2, 4, 0, NULL, NULL);
+INSERT INTO `epi_task_sand` VALUES (3, 3, 4, 1, NULL, NULL);
+INSERT INTO `epi_task_sand` VALUES (4, 4, 4, -1, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for epi_user
@@ -268,12 +287,13 @@ CREATE TABLE `epi_user`  (
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '疫情系统用户表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '疫情系统用户表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of epi_user
 -- ----------------------------
 INSERT INTO `epi_user` VALUES (1, 'xiao', '123', '12345689', '222', '肖光鼎', '2222', 0, 0, NULL, '22', '2021-01-18 15:53:37', '2021-01-18 15:53:55');
+INSERT INTO `epi_user` VALUES (4, 'ovRTz0Mfo8dpsqLFb7aG4JNPuhBI', '123456', NULL, NULL, '肖光鼎2', NULL, 0, 0, NULL, NULL, '2021-01-27 15:57:41', '2021-01-27 15:57:41');
 
 -- ----------------------------
 -- Table structure for epi_user_banding
@@ -295,6 +315,7 @@ CREATE TABLE `epi_user_banding`  (
 -- Records of epi_user_banding
 -- ----------------------------
 INSERT INTO `epi_user_banding` VALUES (1, 'weix00001', 1, '西瓜刀', NULL, 1, '2021-01-18 18:56:34', '111');
+INSERT INTO `epi_user_banding` VALUES (4, 'ovRTz0Mfo8dpsqLFb7aG4JNPuhBI', 4, '肖', 'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLZCGBIwHxDicjdQed6dZbicKuN87FMqjictqIsWmvmZ64YCWXCkXQh3nia2O1XutgKPrRXasgP1tlNow/132', 0, '2021-01-28 12:24:12', NULL);
 
 -- ----------------------------
 -- Table structure for epi_user_base_info
@@ -493,7 +514,7 @@ CREATE TABLE `qrtz_scheduler_state`  (
 -- ----------------------------
 -- Records of qrtz_scheduler_state
 -- ----------------------------
-INSERT INTO `qrtz_scheduler_state` VALUES ('RenrenScheduler', 'PC-20201117KVRV1610983110161', 1610985668982, 15000);
+INSERT INTO `qrtz_scheduler_state` VALUES ('RenrenScheduler', 'lc5482241611803543148', 1611810334053, 15000);
 
 -- ----------------------------
 -- Table structure for qrtz_simple_triggers
@@ -581,7 +602,7 @@ CREATE TABLE `qrtz_triggers`  (
 -- ----------------------------
 -- Records of qrtz_triggers
 -- ----------------------------
-INSERT INTO `qrtz_triggers` VALUES ('RenrenScheduler', 'TASK_1', 'DEFAULT', 'TASK_1', 'DEFAULT', NULL, 1610987400000, 1610985600000, 5, 'WAITING', 'CRON', 1610619441000, 0, NULL, 2, 0xACED0005737200156F72672E71756172747A2E4A6F62446174614D61709FB083E8BFA9B0CB020000787200266F72672E71756172747A2E7574696C732E537472696E674B65794469727479466C61674D61708208E8C3FBC55D280200015A0013616C6C6F77735472616E7369656E74446174617872001D6F72672E71756172747A2E7574696C732E4469727479466C61674D617013E62EAD28760ACE0200025A000564697274794C00036D617074000F4C6A6176612F7574696C2F4D61703B787001737200116A6176612E7574696C2E486173684D61700507DAC1C31660D103000246000A6C6F6164466163746F724900097468726573686F6C6478703F4000000000000C7708000000100000000174000D4A4F425F504152414D5F4B45597372002E696F2E72656E72656E2E6D6F64756C65732E6A6F622E656E746974792E5363686564756C654A6F62456E7469747900000000000000010200074C00086265616E4E616D657400124C6A6176612F6C616E672F537472696E673B4C000A63726561746554696D657400104C6A6176612F7574696C2F446174653B4C000E63726F6E45787072657373696F6E71007E00094C00056A6F6249647400104C6A6176612F6C616E672F4C6F6E673B4C0006706172616D7371007E00094C000672656D61726B71007E00094C00067374617475737400134C6A6176612F6C616E672F496E74656765723B7870740008746573745461736B7372000E6A6176612E7574696C2E44617465686A81014B5974190300007870770800000177005FFA507874000E3020302F3330202A202A202A203F7372000E6A6176612E6C616E672E4C6F6E673B8BE490CC8F23DF0200014A000576616C7565787200106A6176612E6C616E672E4E756D62657286AC951D0B94E08B0200007870000000000000000174000672656E72656E74000CE58F82E695B0E6B58BE8AF95737200116A6176612E6C616E672E496E746567657212E2A0A4F781873802000149000576616C75657871007E0013000000007800);
+INSERT INTO `qrtz_triggers` VALUES ('RenrenScheduler', 'TASK_1', 'DEFAULT', 'TASK_1', 'DEFAULT', NULL, 1611811800000, 1611810000000, 5, 'WAITING', 'CRON', 1610619441000, 0, NULL, 2, 0xACED0005737200156F72672E71756172747A2E4A6F62446174614D61709FB083E8BFA9B0CB020000787200266F72672E71756172747A2E7574696C732E537472696E674B65794469727479466C61674D61708208E8C3FBC55D280200015A0013616C6C6F77735472616E7369656E74446174617872001D6F72672E71756172747A2E7574696C732E4469727479466C61674D617013E62EAD28760ACE0200025A000564697274794C00036D617074000F4C6A6176612F7574696C2F4D61703B787001737200116A6176612E7574696C2E486173684D61700507DAC1C31660D103000246000A6C6F6164466163746F724900097468726573686F6C6478703F4000000000000C7708000000100000000174000D4A4F425F504152414D5F4B45597372002E696F2E72656E72656E2E6D6F64756C65732E6A6F622E656E746974792E5363686564756C654A6F62456E7469747900000000000000010200074C00086265616E4E616D657400124C6A6176612F6C616E672F537472696E673B4C000A63726561746554696D657400104C6A6176612F7574696C2F446174653B4C000E63726F6E45787072657373696F6E71007E00094C00056A6F6249647400104C6A6176612F6C616E672F4C6F6E673B4C0006706172616D7371007E00094C000672656D61726B71007E00094C00067374617475737400134C6A6176612F6C616E672F496E74656765723B7870740008746573745461736B7372000E6A6176612E7574696C2E44617465686A81014B5974190300007870770800000177005FFA507874000E3020302F3330202A202A202A203F7372000E6A6176612E6C616E672E4C6F6E673B8BE490CC8F23DF0200014A000576616C7565787200106A6176612E6C616E672E4E756D62657286AC951D0B94E08B0200007870000000000000000174000672656E72656E74000CE58F82E695B0E6B58BE8AF95737200116A6176612E6C616E672E496E746567657212E2A0A4F781873802000149000576616C75657871007E0013000000007800);
 
 -- ----------------------------
 -- Table structure for schedule_job
@@ -618,7 +639,7 @@ CREATE TABLE `schedule_job_log`  (
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`log_id`) USING BTREE,
   INDEX `job_id`(`job_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '定时任务日志' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 99 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '定时任务日志' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of schedule_job_log
@@ -667,6 +688,80 @@ INSERT INTO `schedule_job_log` VALUES (41, 1, 'testTask', 'renren', 0, NULL, 0, 
 INSERT INTO `schedule_job_log` VALUES (42, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-18 23:00:01');
 INSERT INTO `schedule_job_log` VALUES (43, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-18 23:30:00');
 INSERT INTO `schedule_job_log` VALUES (44, 1, 'testTask', 'renren', 0, NULL, 5, '2021-01-19 00:00:00');
+INSERT INTO `schedule_job_log` VALUES (45, 1, 'testTask', 'renren', 0, NULL, 0, '2021-01-19 12:30:00');
+INSERT INTO `schedule_job_log` VALUES (46, 1, 'testTask', 'renren', 0, NULL, 0, '2021-01-19 13:00:00');
+INSERT INTO `schedule_job_log` VALUES (47, 1, 'testTask', 'renren', 0, NULL, 0, '2021-01-19 13:30:01');
+INSERT INTO `schedule_job_log` VALUES (48, 1, 'testTask', 'renren', 0, NULL, 2, '2021-01-19 14:00:01');
+INSERT INTO `schedule_job_log` VALUES (49, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-19 14:30:00');
+INSERT INTO `schedule_job_log` VALUES (50, 1, 'testTask', 'renren', 0, NULL, 0, '2021-01-19 15:00:00');
+INSERT INTO `schedule_job_log` VALUES (51, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-19 15:30:00');
+INSERT INTO `schedule_job_log` VALUES (52, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-19 16:00:00');
+INSERT INTO `schedule_job_log` VALUES (53, 1, 'testTask', 'renren', 0, NULL, 0, '2021-01-19 16:30:00');
+INSERT INTO `schedule_job_log` VALUES (54, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-19 17:30:00');
+INSERT INTO `schedule_job_log` VALUES (55, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-19 18:00:00');
+INSERT INTO `schedule_job_log` VALUES (56, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-19 18:30:01');
+INSERT INTO `schedule_job_log` VALUES (57, 1, 'testTask', 'renren', 0, NULL, 0, '2021-01-19 19:30:00');
+INSERT INTO `schedule_job_log` VALUES (58, 1, 'testTask', 'renren', 0, NULL, 2, '2021-01-19 20:00:01');
+INSERT INTO `schedule_job_log` VALUES (59, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-19 20:30:00');
+INSERT INTO `schedule_job_log` VALUES (60, 1, 'testTask', 'renren', 0, NULL, 0, '2021-01-19 21:00:01');
+INSERT INTO `schedule_job_log` VALUES (61, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-19 21:30:01');
+INSERT INTO `schedule_job_log` VALUES (62, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-19 22:00:01');
+INSERT INTO `schedule_job_log` VALUES (63, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-19 22:30:03');
+INSERT INTO `schedule_job_log` VALUES (64, 1, 'testTask', 'renren', 0, NULL, 0, '2021-01-19 23:00:01');
+INSERT INTO `schedule_job_log` VALUES (65, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-19 23:30:01');
+INSERT INTO `schedule_job_log` VALUES (66, 1, 'testTask', 'renren', 0, NULL, 2, '2021-01-20 12:30:01');
+INSERT INTO `schedule_job_log` VALUES (67, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-20 13:00:04');
+INSERT INTO `schedule_job_log` VALUES (68, 1, 'testTask', 'renren', 0, NULL, 0, '2021-01-20 13:30:00');
+INSERT INTO `schedule_job_log` VALUES (69, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-20 14:00:00');
+INSERT INTO `schedule_job_log` VALUES (70, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-20 14:30:00');
+INSERT INTO `schedule_job_log` VALUES (71, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-20 15:00:00');
+INSERT INTO `schedule_job_log` VALUES (72, 1, 'testTask', 'renren', 0, NULL, 0, '2021-01-20 15:30:00');
+INSERT INTO `schedule_job_log` VALUES (73, 1, 'testTask', 'renren', 0, NULL, 0, '2021-01-20 16:00:00');
+INSERT INTO `schedule_job_log` VALUES (74, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-20 16:30:00');
+INSERT INTO `schedule_job_log` VALUES (75, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-20 17:00:01');
+INSERT INTO `schedule_job_log` VALUES (76, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-20 17:30:00');
+INSERT INTO `schedule_job_log` VALUES (77, 1, 'testTask', 'renren', 0, NULL, 0, '2021-01-20 18:00:00');
+INSERT INTO `schedule_job_log` VALUES (78, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-20 18:30:00');
+INSERT INTO `schedule_job_log` VALUES (79, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-23 12:30:00');
+INSERT INTO `schedule_job_log` VALUES (80, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-23 13:00:00');
+INSERT INTO `schedule_job_log` VALUES (81, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-23 13:30:00');
+INSERT INTO `schedule_job_log` VALUES (82, 1, 'testTask', 'renren', 0, NULL, 0, '2021-01-23 14:00:00');
+INSERT INTO `schedule_job_log` VALUES (83, 1, 'testTask', 'renren', 0, NULL, 0, '2021-01-25 13:30:01');
+INSERT INTO `schedule_job_log` VALUES (84, 1, 'testTask', 'renren', 0, NULL, 2, '2021-01-25 14:00:00');
+INSERT INTO `schedule_job_log` VALUES (85, 1, 'testTask', 'renren', 0, NULL, 2, '2021-01-25 14:30:00');
+INSERT INTO `schedule_job_log` VALUES (86, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-25 15:00:00');
+INSERT INTO `schedule_job_log` VALUES (87, 1, 'testTask', 'renren', 0, NULL, 2, '2021-01-25 15:30:00');
+INSERT INTO `schedule_job_log` VALUES (88, 1, 'testTask', 'renren', 0, NULL, 2, '2021-01-25 16:00:00');
+INSERT INTO `schedule_job_log` VALUES (89, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-25 16:30:00');
+INSERT INTO `schedule_job_log` VALUES (90, 1, 'testTask', 'renren', 0, NULL, 0, '2021-01-25 17:00:01');
+INSERT INTO `schedule_job_log` VALUES (91, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-25 17:30:00');
+INSERT INTO `schedule_job_log` VALUES (92, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-25 18:00:00');
+INSERT INTO `schedule_job_log` VALUES (93, 1, 'testTask', 'renren', 0, NULL, 3, '2021-01-25 18:30:00');
+INSERT INTO `schedule_job_log` VALUES (94, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-26 14:30:00');
+INSERT INTO `schedule_job_log` VALUES (95, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-26 17:00:00');
+INSERT INTO `schedule_job_log` VALUES (96, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-26 17:30:00');
+INSERT INTO `schedule_job_log` VALUES (97, 1, 'testTask', 'renren', 0, NULL, 2, '2021-01-26 18:00:00');
+INSERT INTO `schedule_job_log` VALUES (98, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-27 14:30:00');
+INSERT INTO `schedule_job_log` VALUES (99, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-27 15:00:02');
+INSERT INTO `schedule_job_log` VALUES (100, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-27 15:30:00');
+INSERT INTO `schedule_job_log` VALUES (101, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-27 16:00:00');
+INSERT INTO `schedule_job_log` VALUES (102, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-27 16:30:00');
+INSERT INTO `schedule_job_log` VALUES (103, 1, 'testTask', 'renren', 0, NULL, 0, '2021-01-27 17:00:00');
+INSERT INTO `schedule_job_log` VALUES (104, 1, 'testTask', 'renren', 0, NULL, 0, '2021-01-27 17:30:00');
+INSERT INTO `schedule_job_log` VALUES (105, 1, 'testTask', 'renren', 0, NULL, 0, '2021-01-27 18:00:00');
+INSERT INTO `schedule_job_log` VALUES (106, 1, 'testTask', 'renren', 0, NULL, 0, '2021-01-27 18:30:00');
+INSERT INTO `schedule_job_log` VALUES (107, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-27 19:00:00');
+INSERT INTO `schedule_job_log` VALUES (108, 1, 'testTask', 'renren', 0, NULL, 2, '2021-01-27 19:30:01');
+INSERT INTO `schedule_job_log` VALUES (109, 1, 'testTask', 'renren', 0, NULL, 0, '2021-01-27 20:00:01');
+INSERT INTO `schedule_job_log` VALUES (110, 1, 'testTask', 'renren', 0, NULL, 0, '2021-01-27 20:30:00');
+INSERT INTO `schedule_job_log` VALUES (111, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-27 21:00:00');
+INSERT INTO `schedule_job_log` VALUES (112, 1, 'testTask', 'renren', 0, NULL, 0, '2021-01-27 21:30:00');
+INSERT INTO `schedule_job_log` VALUES (113, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-27 22:00:01');
+INSERT INTO `schedule_job_log` VALUES (114, 1, 'testTask', 'renren', 0, NULL, 0, '2021-01-27 22:30:00');
+INSERT INTO `schedule_job_log` VALUES (115, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-28 11:30:00');
+INSERT INTO `schedule_job_log` VALUES (116, 1, 'testTask', 'renren', 0, NULL, 1, '2021-01-28 12:00:02');
+INSERT INTO `schedule_job_log` VALUES (117, 1, 'testTask', 'renren', 0, NULL, 0, '2021-01-28 12:30:00');
+INSERT INTO `schedule_job_log` VALUES (118, 1, 'testTask', 'renren', 0, NULL, 0, '2021-01-28 13:00:00');
 
 -- ----------------------------
 -- Table structure for sys_captcha
@@ -682,14 +777,19 @@ CREATE TABLE `sys_captcha`  (
 -- ----------------------------
 -- Records of sys_captcha
 -- ----------------------------
+INSERT INTO `sys_captcha` VALUES ('0433b08d-2f11-4e97-8550-e0b983ab48d1', 'c7eng', '2021-01-19 19:19:10');
 INSERT INTO `sys_captcha` VALUES ('1a763acb-35a5-4414-8f3b-89e9023adeb2', '6ndfy', '2021-01-14 23:39:43');
+INSERT INTO `sys_captcha` VALUES ('2cd4267b-9e8b-4f62-879c-18f65ac47ecc', '625fw', '2021-01-19 14:42:46');
 INSERT INTO `sys_captcha` VALUES ('3a3ddce0-cd5a-4bda-8c39-20e3e56e7030', 'nn6bn', '2021-01-17 12:13:34');
 INSERT INTO `sys_captcha` VALUES ('3ac09982-1cc8-48ea-8ac9-585aa2419f3e', '2cbw2', '2021-01-18 20:41:48');
 INSERT INTO `sys_captcha` VALUES ('3d5e2ebd-da63-4cc1-8268-1b31c572aba9', 'ax5ad', '2021-01-17 11:58:22');
+INSERT INTO `sys_captcha` VALUES ('4ee4a46b-2beb-410b-8899-5b0de3843731', 'cna3n', '2021-01-19 15:28:10');
 INSERT INTO `sys_captcha` VALUES ('562378a6-7396-41e7-8a8a-8da2df6b354f', '73b48', '2021-01-18 13:55:58');
 INSERT INTO `sys_captcha` VALUES ('56a873ab-077c-4dd8-82ff-a83084d93e48', '8w3pm', '2021-01-17 11:58:20');
 INSERT INTO `sys_captcha` VALUES ('603e02cd-dd38-44e3-832c-0fc6323e7315', '5xbnf', '2021-01-18 23:08:09');
+INSERT INTO `sys_captcha` VALUES ('83ed866b-da95-4b45-8f16-18b0d0c4c170', 'yey74', '2021-01-28 11:33:29');
 INSERT INTO `sys_captcha` VALUES ('8c211357-2014-425c-8942-74f0a4497a9b', '26nxn', '2021-01-17 11:57:54');
+INSERT INTO `sys_captcha` VALUES ('aa0d6634-9ebf-4947-81a4-a920358e7858', 'gdd2w', '2021-01-28 12:00:27');
 INSERT INTO `sys_captcha` VALUES ('abeb99e2-11ff-4217-8f69-f58562c4a90c', 'bwpdw', '2021-01-18 23:47:10');
 INSERT INTO `sys_captcha` VALUES ('e8d052d9-7025-4585-8e67-ef04ad25361d', '33546', '2021-01-17 15:19:06');
 
@@ -726,7 +826,7 @@ CREATE TABLE `sys_log`  (
   `ip` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT 'IP地址',
   `create_date` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统日志' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 39 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统日志' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_log
@@ -754,6 +854,21 @@ INSERT INTO `sys_log` VALUES (20, 'admin', '修改菜单', 'io.renren.modules.sy
 INSERT INTO `sys_log` VALUES (21, 'admin', '修改菜单', 'io.renren.modules.sys.controller.SysMenuController.update()', '[{\"menuId\":44,\"parentId\":41,\"name\":\"修改\",\"perms\":\"epi:dept:update;epi:dept:select\",\"type\":2,\"orderNum\":6}]', 181, '0:0:0:0:0:0:0:1', '2021-01-17 19:41:50');
 INSERT INTO `sys_log` VALUES (22, 'admin', '修改菜单', 'io.renren.modules.sys.controller.SysMenuController.update()', '[{\"menuId\":44,\"parentId\":41,\"name\":\"修改\",\"perms\":\"epi:dept:update,epi:dept:select\",\"type\":2,\"orderNum\":6}]', 182, '0:0:0:0:0:0:0:1', '2021-01-17 19:42:03');
 INSERT INTO `sys_log` VALUES (23, 'admin', '修改菜单', 'io.renren.modules.sys.controller.SysMenuController.update()', '[{\"menuId\":102,\"parentId\":101,\"name\":\"疫情系统用户表\",\"url\":\"epi/user\",\"type\":1,\"icon\":\"config\",\"orderNum\":6}]', 139, '0:0:0:0:0:0:0:1', '2021-01-18 15:09:06');
+INSERT INTO `sys_log` VALUES (24, 'admin', '保存菜单', 'io.renren.modules.sys.controller.SysMenuController.save()', '[{\"menuId\":107,\"parentId\":1,\"name\":\"健康记录数据表\",\"url\":\"epi/healthinfo\",\"perms\":\"epi:healthinfo:list\",\"type\":1,\"icon\":\"config\",\"orderNum\":0}]', 166, '0:0:0:0:0:0:0:1', '2021-01-19 13:40:29');
+INSERT INTO `sys_log` VALUES (25, 'admin', '删除菜单', 'io.renren.modules.sys.controller.SysMenuController.delete()', '[46]', 49, '0:0:0:0:0:0:0:1', '2021-01-19 13:42:59');
+INSERT INTO `sys_log` VALUES (26, 'admin', '修改菜单', 'io.renren.modules.sys.controller.SysMenuController.update()', '[{\"menuId\":46,\"parentId\":101,\"name\":\"健康记录数据表\",\"url\":\"epi/healthinfo\",\"type\":0,\"icon\":\"config\",\"orderNum\":5}]', 156, '0:0:0:0:0:0:0:1', '2021-01-19 13:43:29');
+INSERT INTO `sys_log` VALUES (27, 'admin', '删除菜单', 'io.renren.modules.sys.controller.SysMenuController.delete()', '[46]', 45, '0:0:0:0:0:0:0:1', '2021-01-19 13:43:52');
+INSERT INTO `sys_log` VALUES (28, 'admin', '删除菜单', 'io.renren.modules.sys.controller.SysMenuController.delete()', '[50]', 246, '0:0:0:0:0:0:0:1', '2021-01-19 13:44:05');
+INSERT INTO `sys_log` VALUES (29, 'admin', '删除菜单', 'io.renren.modules.sys.controller.SysMenuController.delete()', '[47]', 243, '0:0:0:0:0:0:0:1', '2021-01-19 13:44:20');
+INSERT INTO `sys_log` VALUES (30, 'admin', '删除菜单', 'io.renren.modules.sys.controller.SysMenuController.delete()', '[47]', 229, '0:0:0:0:0:0:0:1', '2021-01-19 13:44:23');
+INSERT INTO `sys_log` VALUES (31, 'admin', '删除菜单', 'io.renren.modules.sys.controller.SysMenuController.delete()', '[47]', 227, '0:0:0:0:0:0:0:1', '2021-01-19 13:44:26');
+INSERT INTO `sys_log` VALUES (32, 'admin', '删除菜单', 'io.renren.modules.sys.controller.SysMenuController.delete()', '[48]', 249, '0:0:0:0:0:0:0:1', '2021-01-19 13:44:42');
+INSERT INTO `sys_log` VALUES (33, 'admin', '删除菜单', 'io.renren.modules.sys.controller.SysMenuController.delete()', '[49]', 239, '0:0:0:0:0:0:0:1', '2021-01-19 13:44:48');
+INSERT INTO `sys_log` VALUES (34, 'admin', '删除菜单', 'io.renren.modules.sys.controller.SysMenuController.delete()', '[46]', 246, '0:0:0:0:0:0:0:1', '2021-01-19 13:45:05');
+INSERT INTO `sys_log` VALUES (35, 'admin', '修改菜单', 'io.renren.modules.sys.controller.SysMenuController.update()', '[{\"menuId\":107,\"parentId\":101,\"name\":\"健康记录数据表\",\"url\":\"epi/healthinfo\",\"perms\":\"epi:healthinfo:list\",\"type\":1,\"icon\":\"config\",\"orderNum\":0}]', 148, '0:0:0:0:0:0:0:1', '2021-01-19 13:49:48');
+INSERT INTO `sys_log` VALUES (36, 'admin', '修改菜单', 'io.renren.modules.sys.controller.SysMenuController.update()', '[{\"menuId\":107,\"parentId\":101,\"name\":\"健康记录数据表\",\"url\":\"epi/epihealthinfo\",\"perms\":\"epi:epihealthinfo:list\",\"type\":1,\"icon\":\"config\",\"orderNum\":0}]', 144, '0:0:0:0:0:0:0:1', '2021-01-19 14:46:46');
+INSERT INTO `sys_log` VALUES (37, 'admin', '修改菜单', 'io.renren.modules.sys.controller.SysMenuController.update()', '[{\"menuId\":107,\"parentId\":101,\"name\":\"健康记录数据表\",\"url\":\"epi/epihealthinfo\",\"perms\":\"epi:epihealthinfo:list\",\"type\":1,\"icon\":\"config\",\"orderNum\":0}]', 141, '0:0:0:0:0:0:0:1', '2021-01-19 15:08:14');
+INSERT INTO `sys_log` VALUES (38, 'admin', '修改菜单', 'io.renren.modules.sys.controller.SysMenuController.update()', '[{\"menuId\":107,\"parentId\":101,\"name\":\"健康记录数据表\",\"url\":\"epi/healthinfo\",\"perms\":\"epi:healthinfo:list\",\"type\":1,\"icon\":\"config\",\"orderNum\":0}]', 138, '0:0:0:0:0:0:0:1', '2021-01-19 18:14:47');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -769,7 +884,7 @@ CREATE TABLE `sys_menu`  (
   `icon` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '菜单图标',
   `order_num` int NULL DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (`menu_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 102 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '菜单管理' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 108 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '菜单管理' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_menu
@@ -818,11 +933,6 @@ INSERT INTO `sys_menu` VALUES (42, 41, '查看', NULL, 'epi:dept:list,epi:dept:i
 INSERT INTO `sys_menu` VALUES (43, 41, '新增', NULL, 'epi:dept:save', 2, NULL, 6);
 INSERT INTO `sys_menu` VALUES (44, 41, '修改', NULL, 'epi:dept:update,epi:dept:select', 2, NULL, 6);
 INSERT INTO `sys_menu` VALUES (45, 41, '删除', NULL, 'epi:dept:delete', 2, NULL, 6);
-INSERT INTO `sys_menu` VALUES (46, 101, '健康记录数据表', 'epi/healthinfo', NULL, 1, 'config', 6);
-INSERT INTO `sys_menu` VALUES (47, 46, '查看', NULL, 'epi:healthinfo:list,epi:healthinfo:info', 2, NULL, 6);
-INSERT INTO `sys_menu` VALUES (48, 46, '新增', NULL, 'epi:healthinfo:save', 2, NULL, 6);
-INSERT INTO `sys_menu` VALUES (49, 46, '修改', NULL, 'epi:healthinfo:update', 2, NULL, 6);
-INSERT INTO `sys_menu` VALUES (50, 46, '删除', NULL, 'epi:healthinfo:delete', 2, NULL, 6);
 INSERT INTO `sys_menu` VALUES (51, 101, '消息表', 'epi/message', NULL, 1, 'config', 6);
 INSERT INTO `sys_menu` VALUES (52, 51, '查看', NULL, 'epi:message:list,epi:message:info', 2, NULL, 6);
 INSERT INTO `sys_menu` VALUES (53, 51, '新增', NULL, 'epi:message:save', 2, NULL, 6);
@@ -879,6 +989,7 @@ INSERT INTO `sys_menu` VALUES (103, 102, '查看', NULL, 'epi:user:list,epi:user
 INSERT INTO `sys_menu` VALUES (104, 102, '新增', NULL, 'epi:user:save', 2, NULL, 6);
 INSERT INTO `sys_menu` VALUES (105, 102, '修改', NULL, 'epi:user:update', 2, NULL, 6);
 INSERT INTO `sys_menu` VALUES (106, 102, '删除', NULL, 'epi:user:delete', 2, NULL, 6);
+INSERT INTO `sys_menu` VALUES (107, 101, '健康记录数据表', 'epi/healthinfo', 'epi:healthinfo:list', 1, 'config', 0);
 
 -- ----------------------------
 -- Table structure for sys_oss
@@ -981,7 +1092,7 @@ CREATE TABLE `sys_user_token`  (
 -- ----------------------------
 -- Records of sys_user_token
 -- ----------------------------
-INSERT INTO `sys_user_token` VALUES (1, 'c379db7d18df7b8f9bd1a989c678d34c', '2021-01-19 11:44:48', '2021-01-18 23:44:48');
+INSERT INTO `sys_user_token` VALUES (1, 'b448a91c347123cab55707fdd53f2243', '2021-01-29 00:51:54', '2021-01-28 12:51:54');
 
 -- ----------------------------
 -- Table structure for tb_user

@@ -10,7 +10,7 @@ import lombok.Data;
 
 /**
  * 任务发送表
- * 
+ *
  * @author xiaoguangding
  * @email 472036660@qq.com
  * @date 2021-01-17 11:20:57
@@ -60,6 +60,21 @@ public class TaskSandEntity implements Serializable {
 	 */
 	@TableField(exist = false)
 	private String title;
+	/**
+	 * 开始时间
+	 */
+	@TableField(exist = false)
+	private Date startTime;
+	/**
+	 * 结束时间
+	 */
+	@TableField(exist = false)
+	private Date endTime;
+	/**
+	 * 类型 0：一般 1：紧急
+	 */
+	@TableField(exist = false)
+	private Integer sandType;
 
 
 }

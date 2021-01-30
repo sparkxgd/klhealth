@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import io.renren.common.utils.PageUtils;
 import io.renren.modules.epi.entity.TaskSandEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,6 +23,19 @@ public interface TaskSandService extends IService<TaskSandEntity> {
      * @return
      */
     PageUtils queryPages(Map<String, Object> params);
+
+    /**
+     * 表关联查询
+     * @param params
+     * @return
+     */
+    PageUtils queryPages2(Map<String, Object> params);
+    /**
+     * 获取用户今日任务列表
+     * @param userid
+     * @return
+     */
+    List<TaskSandEntity> myDayTaskList(Long userid);
 
 }
 
