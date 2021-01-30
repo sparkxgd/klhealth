@@ -252,6 +252,13 @@
 			<version>1.2.33</version>
 		</dependency>
 
+		<!--微信端登录-->
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcpkix-jdk15on</artifactId>
+			<version>1.64</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
