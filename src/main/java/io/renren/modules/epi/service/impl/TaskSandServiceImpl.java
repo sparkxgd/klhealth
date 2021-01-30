@@ -4,6 +4,8 @@ import com.qiniu.util.StringUtils;
 import io.renren.modules.epi.entity.StudentClassesEntity;
 import io.renren.modules.epi.entity.TaskEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -58,5 +60,10 @@ public class TaskSandServiceImpl extends ServiceImpl<TaskSandDao, TaskSandEntity
         IPage<TaskSandEntity> pages= this.baseMapper.getPages2(page,queryWrapper);
 
         return new PageUtils(pages);
+    }
+
+    @Override
+    public List<TaskSandEntity> myDayTaskList(Long userid) {
+        return this.baseMapper.myDayTaskList(userid);
     }
 }

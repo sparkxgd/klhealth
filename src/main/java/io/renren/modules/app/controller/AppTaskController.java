@@ -17,6 +17,7 @@ import io.renren.modules.app.form.LoginForm;
 import io.renren.modules.app.form.WeixinUserForm;
 import io.renren.modules.app.utils.JwtUtils;
 import io.renren.modules.app.utils.WechatUtils;
+import io.renren.modules.epi.entity.TaskSandEntity;
 import io.renren.modules.epi.entity.UserBandingEntity;
 import io.renren.modules.epi.service.TaskSandService;
 import io.renren.modules.epi.service.TaskService;
@@ -29,6 +30,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -48,6 +50,19 @@ public class AppTaskController {
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = taskSandService.queryPages2(params);
         return R.ok().put("page", page);
+    }
+    /**
+     * 获取用户今日任务列表
+     */
+    @RequestMapping("/my_day_task_list")
+    public R myDayTaskList(@RequestParam Map<String, Object> params){
+        Object k = params.get("userid");
+        Long userid=null;
+        if(k!=null){
+            userid = Long.valueOf(String.valueOf(k));
+        }
+        List<TaskSandEntity>  list= taskSandService.myDayTaskList(userid);
+        return R.ok().put("list", list);
     }
 
 }
