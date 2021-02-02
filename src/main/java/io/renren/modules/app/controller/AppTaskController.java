@@ -9,27 +9,17 @@
 package io.renren.modules.app.controller;
 
 
-import com.alibaba.fastjson.JSONObject;
+import com.qiniu.util.StringUtils;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.R;
-import io.renren.common.validator.ValidatorUtils;
-import io.renren.modules.app.form.LoginForm;
-import io.renren.modules.app.form.WeixinUserForm;
-import io.renren.modules.app.utils.JwtUtils;
-import io.renren.modules.app.utils.WechatUtils;
 import io.renren.modules.epi.entity.TaskSandEntity;
-import io.renren.modules.epi.entity.UserBandingEntity;
 import io.renren.modules.epi.service.TaskSandService;
-import io.renren.modules.epi.service.TaskService;
-import io.renren.modules.epi.service.UserBandingService;
-import io.renren.modules.epi.service.UserService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -58,7 +48,7 @@ public class AppTaskController {
     public R myDayTaskList(@RequestParam Map<String, Object> params){
         Object k = params.get("userid");
         Long userid=null;
-        if(k!=null){
+        if(!StringUtils.isNullOrEmpty(String.valueOf(k))){
             userid = Long.valueOf(String.valueOf(k));
         }
         List<TaskSandEntity>  list= taskSandService.myDayTaskList(userid);

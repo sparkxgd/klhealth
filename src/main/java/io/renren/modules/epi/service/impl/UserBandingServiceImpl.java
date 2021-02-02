@@ -56,7 +56,7 @@ public class UserBandingServiceImpl extends ServiceImpl<UserBandingDao, UserBand
         //判断是否存在这个微信号
         UserBandingEntity m = this.getByweixinId(weixinId);
         //如果没有，就创建，注意：先创建用户表，然后再创建绑定表
-        if(m==null){
+        if(m==null&&!StringUtils.isNullOrEmpty(weixinId)){
             EpiUserEntity user=new EpiUserEntity();
             user.setCreateTime(new Date());
             user.setUsername(weixinId);
