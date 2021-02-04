@@ -2,6 +2,7 @@ package io.renren.modules.epi.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import io.renren.common.utils.PageUtils;
+import io.renren.common.utils.R;
 import io.renren.modules.epi.entity.EpiUserEntity;
 import io.renren.modules.epi.entity.TaskEntity;
 
@@ -30,6 +31,13 @@ public interface TaskService extends IService<TaskEntity> {
      * @return
      */
     TaskEntity getTaskById(long id);
+
+    /**
+     * 开始执行任务
+     * @param id
+     * @return
+     */
+     R startTask(Long id);
 
 }
 

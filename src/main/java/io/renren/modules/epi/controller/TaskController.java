@@ -6,6 +6,9 @@ import java.util.Map;
 
 import io.renren.modules.epi.entity.EpiUserEntity;
 import io.renren.modules.epi.service.UserService;
+import io.renren.modules.sys.entity.SysUserEntity;
+import io.renren.modules.sys.service.SysUserService;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,7 +37,7 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
     @Autowired
-    private UserService epiUserService;
+    private SysUserService sysUserService;
 
     /**
      * 列表
@@ -54,7 +57,6 @@ public class TaskController {
     @RequiresPermissions("epi:task:info")
     public R info(@PathVariable("id") Long id){
 		TaskEntity task = taskService.getById(id);
-
         return R.ok().put("task", task);
     }
 
@@ -64,16 +66,12 @@ public class TaskController {
     @RequestMapping("/save")
     @RequiresPermissions("epi:task:save")
     public R save(@RequestBody TaskEntity task){
-        //根据id判断是否存在此人
-        EpiUserEntity u = epiUserService.getInfoByid(task.getUserId());
-        if(u!=null){
-            task.setStatus(0);
-            taskService.save(task);
-            return R.ok();
-        }else{
-            return R.error("查无此人");
-        }
-
+        //获取登录人的id
+        Long userId = ((SysUserEntity) SecurityUtils.getSubject().getPrincipal()).getUserId();
+        task.setUserId(userId);
+        task.setStatus(0);
+        taskService.save(task);
+        return R.ok();
     }
 
     /**
@@ -82,13 +80,8 @@ public class TaskController {
     @RequestMapping("/update")
     @RequiresPermissions("epi:task:update")
     public R update(@RequestBody TaskEntity task){
-        EpiUserEntity u = epiUserService.getInfoByid(task.getUserId());
-        if(u!=null){
 		taskService.updateById(task);
         return R.ok();
-        }else{
-            return R.error("查无此人");
-        }
     }
 
     /**
@@ -98,8 +91,15 @@ public class TaskController {
     @RequiresPermissions("epi:task:delete")
     public R delete(@RequestBody Long[] ids){
 		taskService.removeByIds(Arrays.asList(ids));
-
         return R.ok();
     }
 
+    /**
+     * 执行任务
+     */
+    @RequestMapping("/startTask")
+    @RequiresPermissions("epi:task:startTask")
+    public R startTask(@RequestBody Long id){
+        return taskService.startTask(id);
+    }
 }

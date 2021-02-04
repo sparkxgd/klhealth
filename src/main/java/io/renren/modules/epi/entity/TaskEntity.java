@@ -63,6 +63,10 @@ public class TaskEntity implements Serializable {
 	 */
 	private String remark;
 	/**
+	 * 发送目标：0：所有用户，1：学生，2教师，3,其他
+	 */
+	private Integer sandTarget;
+	/**
 	 * 用户名
 	 */
 	@TableField(exist = false)

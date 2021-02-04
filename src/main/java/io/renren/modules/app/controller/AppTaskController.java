@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,10 +50,26 @@ public class AppTaskController {
         Object k = params.get("userid");
         Long userid=null;
         if(!StringUtils.isNullOrEmpty(String.valueOf(k))){
-            userid = Long.valueOf(String.valueOf(k));
+            if (!k.equals("null")) {
+                userid = Long.valueOf(String.valueOf(k));
+            }
         }
         List<TaskSandEntity>  list= taskSandService.myDayTaskList(userid);
-        return R.ok().put("list", list);
+        int wei = 0;
+        int yi = 0;
+        for (int i=0;i<list.size();i++){
+            if(list.get(i).getStatus()==0){
+                wei++;
+            }
+            if (list.get(i).getStatus()==1){
+                yi++;
+            }
+        }
+        Map<String, Object> dayTaskInfo=new HashMap<>();
+        dayTaskInfo.put("total",list.size());
+        dayTaskInfo.put("wei",wei);
+        dayTaskInfo.put("yi",yi);
+        return R.ok().put("list", list).put("dayTaskInfo",dayTaskInfo);
     }
 
 }
